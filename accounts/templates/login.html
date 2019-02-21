@@ -1,0 +1,35 @@
+{% extends 'base.html'%}
+
+{% load socialaccount %}
+{% providers_media_js %}
+
+{% block contents %}
+
+{% if error %}
+{{ error }}
+<br>
+<br>
+{% endif %}
+
+
+<div class="container">
+
+    <h1>Login!</h1>
+
+    <a href="{% provider_login_url 'google' %}">구글 로그인</a> <br><br>
+
+    <form method = "POST" action = "{% url 'login' %}">
+        {% csrf_token %}
+        Username:
+        <br>
+        <input name="username" type="text" value="">
+        <br><br>
+        Password:
+        <br>
+        <input name="password" type="password" value="">
+        <br><br>
+        <input class="btn-btn-primary" type="submit" value="Login">
+    </form>
+
+</div>
+{%endblock%}

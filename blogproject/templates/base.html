@@ -12,23 +12,46 @@
             font-family: 'Yeon Sung', cursive;
             font-size : 15px;
     }
+
+        h1 {
+            font-family: 'Yeon Sung', cursive;
+        }
     </style>
 </head>
 
 <body class = "font">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="{% url 'home' %}">블로그</a>
+    <a class="navbar-brand">LIKELION</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-            <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{% url 'home' %}">Home<span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'new' %}">글쓰기</a>
+        <li class="nav-item active">
+            {% if user.is_authenticated %}
+                <li class="nav-item active">
+                    <a class="nav-link">환영합니다! :) {{ user.username }}님!</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'new' %}">글쓰기</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}">로그아웃</a>
+                    <form id ="logout" method="POST" action="{% url 'logout' %}">
+                        {% csrf_token %} <input type="hidden" />
+                    </form>
+                </li>
+            {% else %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'login' %}">로그인</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'signup' %}">회원가입</a>
+                </li>
+            {% endif %}
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -36,11 +59,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{% url 'portfolio' %}">portfolio</a>
-            <div class="dropdown-divider"></div>
             </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
