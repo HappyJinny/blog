@@ -1,6 +1,8 @@
+*.log
+*.pot
+*.pyc
 .vscode/
-venv/
-.idea/
 db.sqlite3
 __pycache__/
-myvenv/
+media
+local_settings.py
